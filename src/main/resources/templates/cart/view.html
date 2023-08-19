@@ -1,0 +1,47 @@
+<div xmlns:th="http://www.thymeleaf.org" 
+	th:replace="~{/layout/index :: dynamic (~{::main})}">
+	<main>
+		<div class="card bg-light" th:fragment="cart_frag">
+			<div class="card-header bg-dark text-white">SHOPPING CART</div>
+			<div ng-if="!cart.items.length" class="card-body text-center">
+				<h3 class="text-uppercase">Mua hàng đi bé ưi !!!</h3>
+			</div>
+			<table ng-if="cart.items.length" class="table">
+				<thead class="bg-success text-white">
+					<tr>
+						<th><strong>Id</strong></th>
+						<th><strong>Name</strong></th>
+						<th><strong>Price</strong></th>
+						<th><strong>Quantity</strong></th>
+						<th><strong>Amount</strong></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in cart.items">
+						<td>{{item.id}}</td>
+						<td>{{item.name}}</td>
+						<td>${{item.price | number : 2}}</td>
+						<td>
+							<input ng-change="cart.saveToLocalStorage()" ng-model="item.qty" type="number" min="1" style="width:60px;">
+						</td>
+						<td>${{cart.amt_of(item) | number : 2}}</td>
+						<td>
+							<button ng-click="cart.remove(item.id)" class="btn btn-sm btn-danger">
+								<i class="bi bi-trash"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div ng-if="cart.items.length" class="card-footer">
+				<button ng-click="cart.clear()" class="btn btn-danger">
+					<i class="bi bi-trash"></i> Clear
+				</button>
+				<a th:href="@{/order/checkout}" class="btn btn-primary">
+					<i class="bi bi-bag-check"></i></i> Checkout
+				</a>
+			</div>
+		</div>		
+	</main>
+</div>

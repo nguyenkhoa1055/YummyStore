@@ -1,0 +1,55 @@
+<div class="panel panel-default" ng-if="items">
+	<div class="card-header">PRODUCT LIST</div>
+	<table class="table table-striped table-bordered">
+		<thead class="bg-success text-white text-uppercase">
+			<tr>
+				<th>Id</th>
+				<th>Name</th>
+				<th>Price</th>
+				<th>Date</th>
+				<th>Image</th>
+				<th>Category</th>
+				<th>Available?</th>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="item in pager.items">
+				<td>{{item.id}}</td>
+				<td>{{item.name}}</td>
+				<td>{{item.price | number : 2}}</td>
+				<td>{{item.createDate | date : 'dd-MM-yyyy'}}</td>
+				<td>{{item.image}}</td>
+				<td>{{item.category.name}}</td>
+				<td>{{item.available?'Yes':'No'}}</td>
+				<td>
+					<div class="btn-group btn-group-xs">
+						<a ng-click="edit(item)" href="" class="btn btn-warning">
+							<b class="bi bi-pencil-square"></b>
+						</a>
+						<a ng-click="delete(item)" href="" class="btn btn-danger">
+							<span><i class="bi bi-trash"></i></span>
+						</a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="card-footer text-center">
+        <button ng-click="pager.first()" class="btn btn-danger">
+            <span class="bi bi-skip-backward"></span>
+        </button>
+        <button ng-click="pager.prev()" class="btn btn-primary">
+            <span class="bi bi-skip-start"></span>
+        </button>
+        <button class="btn btn-success">
+            {{pager.page + 1}} of {{pager.count}}
+        </button>
+        <button ng-click="pager.next()" class="btn btn-primary">
+            <span class="bi bi-skip-end"></span>
+        </button>
+        <button ng-click="pager.last()" class="btn btn-danger">
+            <span class="bi bi-skip-forward"></span>
+        </button>
+    </div>
+  </div>
